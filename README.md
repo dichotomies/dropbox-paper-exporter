@@ -7,4 +7,4 @@ Live at: [https://dichotomies.github.io/dropbox-paper-exporter](https://dichotom
 
 ## Usage
 1. Generate a Dropbox access token (see [instructions.html](instructions.html)).
-2. Paste it in and export!
+2. Paste it in and export.
