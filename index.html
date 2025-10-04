@@ -12,7 +12,7 @@
     <!-- Dropbox SDK (v10.34.0 via cdnjs) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropbox.js/10.34.0/Dropbox-sdk.min.js"></script>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 650px; margin: 0 auto; padding: 20px; }
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; }
         h1 { font-size: 1.5em; } /* Reduced font size for title */
         input, button { padding: 10px; margin: 10px 0; width: 100%; box-sizing: border-box; }
         .checkbox-group { display: flex; align-items: center; margin: 10px 0; }
@@ -27,19 +27,58 @@
         .about { color: #666; margin-bottom: 10px; }
         .instructions-link { color: #0066cc; text-decoration: underline; cursor: pointer; }
         .footer { text-align: center; font-size: 0.8em; color: #999; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: pointer; /* Changed from 'help' to remove question mark icon */
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 300px;
+            background-color: #555;
+            color: #fff;
+            text-align: left; /* Aligned to left */
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -150px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
-    <h1>Export Dropbox Paper Docs to Markdown</h1>
-    <p class="about">This app extracts all Dropbox Paper documents and downloads them to your computer.</p>
+    <h1>Export Dropbox Paper Documents to Markdown</h1>
+    <p class="about">This app extracts all Dropbox Paper documents and downloads them.</p>
     <div class="warning">
-        <strong>Warning:</strong> Enter your Dropbox access token below. Generate one at <a href="https://www.dropbox.com/developers/apps" target="_blank">Dropbox App Console</a>. This runs locally in your browser—do not share this page with your token entered! <a href="instructions.html" class="instructions-link">How to grant Dropbox access and create the access token</a>
+        <strong>Warning:</strong> Enter your Dropbox access token below. Generate one at <a href="https://www.dropbox.com/developers/apps" target="_blank">Dropbox App Console</a>. This runs locally in your browser—do not share this page with your token entered! <a href="instructions.html" class="instructions-link">How to grant Dropbox access and create the access token</a>.
     </div>
     <input type="password" id="token" placeholder="Paste your Dropbox access token here" />
     <button id="exportBtn" onclick="startExport()">Start Export</button>
     <div class="checkbox-group">
         <input type="checkbox" id="useZip" checked>
-        <label for="useZip">Export as ZIP (with folder structure)</label>
+        <label for="useZip">
+            <span class="tooltip">Export as ZIP (with folder structure)<span class="tooltiptext">When enabled: Downloads a single ZIP file with full folder structure preserved.<br><br>When disabled: Downloads individual files with flattened names using " ___ " separators for representing the folder structure.</span></span>
+        </label>
     </div>
     <div id="progress">
         <div id="progress-text"></div>
