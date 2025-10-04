@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dropbox Paper to Markdown Exporter</title>
+    <link rel="icon" href="data:,">
+    <!-- Polyfill for Promise (for older browsers) -->
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
+    <!-- JSZip for ZIP exports -->
+    <script src="https://unpkg.com/jszip@3.10.1/dist/jszip.min.js"></script>
+    <!-- Dropbox SDK (v10.34.0 via cdnjs) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropbox.js/10.34.0/Dropbox-sdk.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; }
+        h1 { font-size: 1.5em; } /* Reduced font size for title */
+        input, button { padding: 10px; margin: 10px 0; width: 100%; box-sizing: border-box; }
+        .checkbox-group { display: flex; align-items: center; margin: 10px 0; }
+        .checkbox-group input[type="checkbox"] { width: auto; margin-right: 8px; }
+        #progress { margin: 20px 0; }
+        #progress-bar { width: 100%; height: 20px; margin: 10px 0; }
+        #progress-text { font-weight: bold; }
+        #status { color: green; max-height: 300px; overflow-y: auto; }
+        .error { color: red; }
+        .warning { color: orange; background: #fff3cd; padding: 10px; border-radius: 4px; }
+        #exportBtn.stop { background-color: #ffcccc; color: #cc0000; border: 1px solid #ff9999; }
+        .about { font-style: italic; color: #666; margin-bottom: 10px; }
+        .instructions-link { color: #0066cc; text-decoration: underline; cursor: pointer; }
+        .footer { text-align: center; font-size: 0.8em; color: #999; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; }
+    </style>
+</head>
+<body>
+    <h1>Export Dropbox Paper Docs to Markdown</h1>
+    <p class="about">This app extracts all Dropbox Paper files and downloads them to your computer.</p>
+    <div class="warning">
+        <strong>Warning:</strong> Enter your Dropbox access token below. Generate one at <a href="https://www.dropbox.com/developers/apps" target="_blank">Dropbox App Console</a> (use the same app as your Python script). This runs locally in your browser—do not share this page with your token entered! <a href="instructions.html" class="instructions-link">How to grant Dropbox access and create the access token</a>
+    </div>
+    <input type="password" id="token" placeholder="Paste your Dropbox access token here" />
+    <button id="exportBtn" onclick="startExport()">Start Export</button>
+    <div class="checkbox-group">
+        <input type="checkbox" id="useZip" checked>
+        <label for="useZip">Export as ZIP (with folder structure)</label>
+    </div>
+    <div id="progress">
+        <div id="progress-text"></div>
+        <progress id="progress-bar" value="0" max="1"></progress>
+    </div>
+    <div id="status"></div>
+    <footer class="footer">
+        Made by <a href="https://github.com/dichotomies">Vadim Tschernezki</a> and <a href="https://x.ai/grok">Grok 4</a>
+    </footer>
+    <script src="app.js"></script>
+</body>
+</html>

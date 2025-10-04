@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Create a Dropbox Access Token</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        h1, h2 { color: #333; }
+        ol, ul { padding-left: 20px; }
+        a { color: #0066cc; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .back-link { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link">&larr; Back to Exporter</a>
+    <h1>How to Grant Dropbox Access and Create an Access Token</h1>
+    <p>This guide walks you through creating a Dropbox app and generating a long-lived access token for the Paper exporter. It takes ~2 minutes.</p>
+
+    <h2>Step 1: Create a Dropbox App</h2>
+    <ol>
+        <li>Go to the <a href="https://www.dropbox.com/developers/apps" target="_blank">Dropbox App Console</a> and sign in.</li>
+        <li>Click <strong>Create app</strong>.</li>
+        <li>Choose <strong>Scoped access</strong> (recommended for security).</li>
+        <li>Select your Dropbox folder access: <strong>Full Dropbox</strong>.</li>
+        <li>Enter a name (e.g., "Paper Exporter") and click <strong>Create app</strong>.</li>
+    </ol>
+
+    <h2>Step 2: Set Permissions (Scopes)</h2>
+    <ol>
+        <li>In your new app's page, go to the <strong>Permissions</strong> tab.</li>
+        <li>Enable these scopes (check the boxes):
+            <ul>
+                <li><code>files.metadata.read</code> (to list files)</li>
+                <li><code>files.content.read</code> (to export content)</li>
+            </ul>
+        </li>
+        <li>Click <strong>Submit</strong> to save. (It may take a minute to propagate.)</li>
+    </ol>
+
+    <h2>Step 3: Generate the Access Token</h2>
+    <ol>
+        <li>Go to the <strong>Settings</strong> tab.</li>
+        <li>Scroll to <strong>OAuth 2</strong> section.</li>
+        <li>Click <strong>Generate</strong> under "Generated access token".</li>
+        <li>Copy the token (starts with <code>sl.</code>)—paste it into the exporter!</li>
+    </ol>
+
+    <p><strong>Tips:</strong></p>
+    <ul>
+        <li>Tokens are long-lived but revocable—regenerate if compromised.</li>
+        <li>For the exporter, no OAuth flow needed; just the token.</li>
+        <li>If errors occur (e.g., scope issues), double-check permissions and regenerate.</li>
+    </ul>
+
+    <p>Questions? Check <a href="https://developers.dropbox.com/" target="_blank">Dropbox Docs</a> or the exporter's status logs.</p>
+
+    <a href="index.html">&larr; Back to Exporter</a>
+</body>
+</html>
